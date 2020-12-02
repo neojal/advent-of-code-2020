@@ -14,7 +14,8 @@ public class Day01Test {
      */
     @Test
     void getExpenseReportCode() {
-        assertEquals(713184, ExpenseReport.getExpenseReportCode(array, 2020));
+        assertEquals(713184,
+                ExpenseReport.getExpenseReportCode(array, 2020));
     }
 
     /**
@@ -22,6 +23,7 @@ public class Day01Test {
      */
     @Test
     void getExpenseRecordThree() {
-        assertEquals(261244452, ExpenseReport.getExpenseReportCodeThree(array, 2020));
+        assertEquals(261244452,
+                ExpenseReport.getExpenseReportCodeThree(array, 2020));
     }
 }
