@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class Day01Test {
 
     private static String filePath = "src/test/resources/inputDay01.txt";
-    private static int[] array = MyFileReader.getIntArray(filePath);
+    private static int[] array = new MyFileReader(filePath).getIntArray();
 
     /**
      * Part1: expects the product of two numbers that added are equal to 2020

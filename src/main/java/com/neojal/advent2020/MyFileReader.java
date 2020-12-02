@@ -7,9 +7,14 @@ import java.nio.file.Path;
 
 public class MyFileReader {
 
-    public static int[] getIntArray(String inputPath)
+    private Path path;
+
+    public MyFileReader(String inputPath) {
+        this.path = new File(inputPath).toPath();
+    }
+
+    public int[] getIntArray()
     {
-        Path path = new File(inputPath).toPath();
         try
         {
             int[] array = Files.lines(path).

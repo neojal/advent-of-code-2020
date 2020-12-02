@@ -17,7 +17,6 @@ public class ExpenseReport {
         Map<Integer, Integer> map = Arrays.stream(array).boxed().
                 collect(Collectors.
                         toMap( k -> k, v -> sum-v ));
-        System.out.println(map);
 
         for(Integer key : map.keySet()) {
             if (map.containsKey(map.get(key))) {
