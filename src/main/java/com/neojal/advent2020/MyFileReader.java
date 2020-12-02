@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class MyFileReader {
 
@@ -13,6 +15,10 @@ public class MyFileReader {
         this.path = new File(inputPath).toPath();
     }
 
+    /**
+     *
+     * @return an int[] array from the input file.
+     */
     public int[] getIntArray()
     {
         try
@@ -26,5 +32,19 @@ public class MyFileReader {
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     *
+     * @return an ArrayList whose each element is a line from the input file.
+     */
+    public ArrayList<String> getLinesAsList() {
+        ArrayList<String> lines = new ArrayList<>();
+        try {
+            lines = (ArrayList) Files.lines(path).collect(Collectors.toList());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return lines;
     }
 }

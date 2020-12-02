@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Day01Test {
 
-    private static String filePath = "src/test/resources/inputDay01.txt";
+    private static String filePath = "src/test/resources/day01input.txt";
     private static int[] array = new MyFileReader(filePath).getIntArray();
 
     /**
