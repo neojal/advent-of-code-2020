@@ -52,8 +52,6 @@ public class TobogganTrajectory {
     public long getTreesMultipleTrajectories(String filePath, int[][] trajectories) {
         long treeCounter = 1;
 
-        System.out.println("trajectories lenght: "+ trajectories.length);
-
         for (int i = 0; i < trajectories.length; i++) {
 
             treeCounter *= getTreesFirstTrajectory(filePath, trajectories[i][0], trajectories[i][1]);
