@@ -18,4 +18,6 @@ Then there is a JUnit test for each solved requirement here: [tests](src/test/ja
     - Regex: Pattern & Matcher.
 5. [BinaryBoarding.java](src/main/java/com/neojal/advent2020/day05/BinaryBoarding.java)
     - BinarySearch, Binary conversion.
-6. []()
+6. [CustomsDeclaration.java](src/main/java/com/neojal/advent2020/day06/CustomsDeclaration.java)
+    - Set and Map.
+7. []()
