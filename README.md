@@ -20,4 +20,6 @@ Then there is a JUnit test for each solved requirement here: [tests](src/test/ja
     - BinarySearch, Binary conversion.
 6. [CustomsDeclaration.java](src/main/java/com/neojal/advent2020/day06/CustomsDeclaration.java)
     - Set and Map.
-7. []()
+7. [ShinyBagContents.java](src/main/java/com/neojal/advent2020/day07/ShinyBagContents.java)
+    - Recursion, Pattern-Matcher-Groups
+    - Part 1 is a mess, part 2 is much better.
