@@ -23,3 +23,6 @@ Then there is a JUnit test for each solved requirement here: [tests](src/test/ja
 7. [ShinyBagContents.java](src/main/java/com/neojal/advent2020/day07/ShinyBagContents.java)
     - Recursion, Pattern-Matcher-Groups
     - Part 1 is a mess, part 2 is much better.
+8. [Handheld.java](src/main/java/com/neojal/advent2020/day08/Handheld.java)
+    - Recursion
+    - Collections deep-copy
