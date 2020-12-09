@@ -26,3 +26,6 @@ Then there is a JUnit test for each solved requirement here: [tests](src/test/ja
 8. [Handheld.java](src/main/java/com/neojal/advent2020/day08/Handheld.java)
     - Recursion
     - Collections deep-copy
+9. [EncodingError.java](src/main/java/com/neojal/advent2020/day09/EncodingError.java)
+    - For for for...
+    - Map
