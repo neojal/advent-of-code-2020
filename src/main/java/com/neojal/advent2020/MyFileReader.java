@@ -36,6 +36,25 @@ public class MyFileReader {
 
     /**
      *
+     * @return a long[] array from the input file.
+     */
+    public long[] getLongArray()
+    {
+        try
+        {
+            long[] array = Files.lines(path).
+                    mapToLong(Long::parseLong).
+                    toArray();
+            return array;
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     *
      * @return an ArrayList whose each element is a line from the input file.
      */
     public ArrayList<String> getLinesAsList() {
