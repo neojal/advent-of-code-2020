@@ -29,3 +29,5 @@ Then there is a JUnit test for each solved requirement here: [tests](src/test/ja
 9. [EncodingError.java](src/main/java/com/neojal/advent2020/day09/EncodingError.java)
     - For for for...
     - Map
+10. [JoltAdapter.java](src/main/java/com/neojal/advent2020/day10/JoltAdapter.java)
+    - Part2 - figured out a formula to get all the combinations.
