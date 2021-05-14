@@ -57,7 +57,7 @@ public class MyFileReader {
      *
      * @return an ArrayList whose each element is a line from the input file.
      */
-    public ArrayList<String> getLinesAsList() {
+    public ArrayList<String> getInputAsList() {
         ArrayList<String> lines = new ArrayList<>();
         try {
             lines = (ArrayList) Files.lines(path).collect(Collectors.toList());

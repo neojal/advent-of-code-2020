@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class Day02Test {
 
     private static String filePath = "src/test/resources/day02input.txt";
-    private static ArrayList<String> passwordLines = new MyFileReader(filePath).getLinesAsList();
+    private static ArrayList<String> passwordLines = new MyFileReader(filePath).getInputAsList();
     private static PasswordDebug passwordDebug = new PasswordDebug();
 
     /**

@@ -1,16 +1,13 @@
 package com.neojal.advent2020.day11;
 
-import java.io.*;
-
 public class SeatingSystem {
 
 private static final char SEAT_FREE = 'L';
 private static final char SEAT_OCCUPIED = '#';
 private static final char SEAT_TO_FREE = '-';
-private static final char SEAT_TO_OCUPY = '+';
+private static final char SEAT_TO_OCCUPY = '+';
 
-
-    public int getOccupiedSeats(char[][] seatingArea) throws IOException {
+    public int getOccupiedSeats(char[][] seatingArea) {
 
         int occupiedSeats = 0;
 
@@ -50,7 +47,7 @@ private static final char SEAT_TO_OCUPY = '+';
                 if ( seatingArea[i][j] == SEAT_FREE &&
                         areFourOccupiedAdjacentSeats(seatingArea, i, j) <= 0 ) {
 
-                    seatingArea[i][j] = SEAT_TO_OCUPY;
+                    seatingArea[i][j] = SEAT_TO_OCCUPY;
                 }
             }
         }
@@ -104,7 +101,7 @@ private static final char SEAT_TO_OCUPY = '+';
                 if (seatingArea[i][j] == SEAT_TO_FREE)
                     seatingArea[i][j] = SEAT_FREE;
 
-                if (seatingArea[i][j] == SEAT_TO_OCUPY)
+                if (seatingArea[i][j] == SEAT_TO_OCCUPY)
                     seatingArea[i][j] = SEAT_OCCUPIED;
             }
     }
