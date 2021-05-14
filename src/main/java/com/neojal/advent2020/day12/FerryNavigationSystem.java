@@ -15,15 +15,23 @@ public class FerryNavigationSystem {
     private static final int STARTING_POSITION_X = 0;
     private static final int STARTING_POSITION_Y = 0;
 
-    private static int BACKWARD_DIRECTION = -1;
+    private static final int FORWARD_DIRECTION = 1;
+    private static final int BACKWARD_DIRECTION = -1;
 
-    private static char direction = MOVE_EAST;
-    private static int positionX = STARTING_POSITION_X;
-    private static int positionY = STARTING_POSITION_Y;
+    private static final int CARDINAL_CHANGE = 90;
+    private static final int FIRST_DIRECTION = 0;
+    private static final int LAST_DIRECTION = 3;
+
+    private static char currentDirection;
+    private static int currentPositionX;
+    private static int currentPositionY;
 
     private static FerryNavigationSystem ferryNavigationSystem;
+    private final ArrayList<Character> directionsNavigationOrder = new ArrayList<>();
 
-    private FerryNavigationSystem() {}
+    private FerryNavigationSystem() {
+        initializeFerryNavigationSystem();
+    }
 
     public static FerryNavigationSystem getInstance() {
         return isFerryNavigationSystemNull() ? new FerryNavigationSystem() : ferryNavigationSystem;
@@ -33,56 +41,113 @@ public class FerryNavigationSystem {
         return ferryNavigationSystem == null;
     }
 
+    private void initializeFerryNavigationSystem() {
+        directionsNavigationOrder.add(MOVE_EAST);
+        directionsNavigationOrder.add(MOVE_SOUTH);
+        directionsNavigationOrder.add(MOVE_WEST);
+        directionsNavigationOrder.add(MOVE_NORTH);
+        currentDirection = MOVE_EAST;
+        currentPositionX = STARTING_POSITION_X;
+        currentPositionY = STARTING_POSITION_Y;
+    }
+
     public int getManhattanDistance(ArrayList<String> navigationInstructions) {
-        for(String instruction : navigationInstructions) {
-            calculateDistance(instruction);
+        for (String instruction : navigationInstructions) {
+            processInstruction(instruction);
         }
         return 0;
     }
 
-    private void calculateDistance(String instruction) {
+    private void processInstruction(String instruction) {
         char action = getAction(instruction);
         int value = getValue(instruction);
 
-        int x = 0;
-        int y = 0;
-
-        switch (action) {
-            case MOVE_NORTH:
-                y = getY(value);
-            case MOVE_SOUTH:
-                y = getY(BACKWARD_DIRECTION*value);
-            case MOVE_EAST:
-                x = getX(value);
-            case MOVE_WEST:
-                y = getX(BACKWARD_DIRECTION*value);
-            case TURN_LEFT:
-                turn(TURN_LEFT, value);
-            case TURN_RIGHT:
-                turn(TURN_RIGHT, value);
-            case MOVE_FORWARD:
-            default:
+        if (isaTurnFerryAction(action)) {
+            turnFerry(action, value);
+        } else {
+            if (action == MOVE_FORWARD) {
+                action = getCurrentFerryDirection();
+            }
+            moveFerry(action, value);
         }
-
-
-
     }
 
-    private void turn(char turn_direction, int degrees) {
+    private void moveFerry(char direction, int units) {
+        int x = currentPositionX;
+        int y = currentPositionY;
 
-        this.direction = turn_direction;
+        int directionSign = getDirectionSign(direction);
+        units = directionSign * units;
+
+        switch (direction) {
+            case MOVE_NORTH:
+            case MOVE_SOUTH:
+                y = moveInNorthSouthAxis(units);
+                break;
+            case MOVE_EAST:
+            case MOVE_WEST:
+                x = moveInEastWestAxis(units);
+                break;
+        }
     }
 
-    private int getY(int value) {
-        return positionY - value;
+    private int getDirectionSign(char direction) {
+        return isBackwardsDirection(direction) ?
+                BACKWARD_DIRECTION :
+                FORWARD_DIRECTION;
     }
 
-    private int getX(int value) {
-        return positionX + value;
+    private boolean isBackwardsDirection(char direction) {
+        return direction == MOVE_SOUTH || direction == MOVE_WEST;
+    }
+
+    private void turnFerry(char action, int value) {
+        switch (action) {
+            case TURN_LEFT:
+                rotateDirectionToLeft(value);
+                break;
+            case TURN_RIGHT:
+                rotateDirectionToRight(value);
+                break;
+        }
+    }
+
+    private boolean isaTurnFerryAction(char action) {
+        return action == TURN_LEFT || action == TURN_RIGHT;
+    }
+
+    private char getCurrentFerryDirection() {
+        return currentDirection;
+    }
+
+    private void rotateDirectionToLeft(int degrees) {
+        rotateDirection(degrees, LAST_DIRECTION, FIRST_DIRECTION);
+    }
+
+    private void rotateDirectionToRight(int degrees) {
+        rotateDirection(degrees, FIRST_DIRECTION, LAST_DIRECTION);
+    }
+
+    private void rotateDirection(int degrees, int originalDirectionIndex, int newDirectionIndex) {
+        int rotations = degrees / CARDINAL_CHANGE;
+        while (rotations-- > 0) {
+            char tmpDirection = directionsNavigationOrder.get(originalDirectionIndex);
+            directionsNavigationOrder.remove(originalDirectionIndex);
+            directionsNavigationOrder.add(newDirectionIndex, tmpDirection);
+        }
+        currentDirection = directionsNavigationOrder.get(FIRST_DIRECTION);
+    }
+
+    private int moveInNorthSouthAxis(int value) {
+        return currentPositionY - value;
+    }
+
+    private int moveInEastWestAxis(int value) {
+        return currentPositionX + value;
     }
 
     private char getAction(String instruction) {
-        return instruction.substring(0,1).charAt(0);
+        return instruction.substring(0, 1).charAt(0);
     }
 
     private int getValue(String instruction) {
