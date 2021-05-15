@@ -52,43 +52,53 @@ public class FerryNavigationSystem {
     }
 
     public int getManhattanDistance(ArrayList<String> navigationInstructions) {
+        int manhattanDistance = 0;
         for (String instruction : navigationInstructions) {
-            processInstruction(instruction);
+            manhattanDistance = processInstruction(instruction);
         }
-        return 0;
+        return manhattanDistance;
     }
 
-    private void processInstruction(String instruction) {
+    private int processInstruction(String instruction) {
+        int absoluteDifferenceBetweenXandY = 0;
         char action = getAction(instruction);
         int value = getValue(instruction);
 
         if (isaTurnFerryAction(action)) {
             turnFerry(action, value);
         } else {
-            if (action == MOVE_FORWARD) {
-                action = getCurrentFerryDirection();
-            }
+            action = isMoveForward(action) ? getCurrentFerryDirection() : action;
             moveFerry(action, value);
+            absoluteDifferenceBetweenXandY = getAbsoluteDifferenceBetweenXY();
         }
+        return absoluteDifferenceBetweenXandY;
     }
 
-    private void moveFerry(char direction, int units) {
-        int x = currentPositionX;
-        int y = currentPositionY;
+    private int getAbsoluteDifferenceBetweenXY() {
+        return Math.abs(currentPositionX - currentPositionY);
+    }
 
-        int directionSign = getDirectionSign(direction);
+    private void moveFerry(char action, int units) {
+        int directionSign = getDirectionSign(action);
         units = directionSign * units;
+        setFerryNewCurrentPosition(action, units);
+    }
 
-        switch (direction) {
+    private void setFerryNewCurrentPosition(char action, int units) {
+        switch (action) {
             case MOVE_NORTH:
             case MOVE_SOUTH:
-                y = moveInNorthSouthAxis(units);
+                currentPositionY = moveInNorthSouthAxis(units);
                 break;
             case MOVE_EAST:
             case MOVE_WEST:
-                x = moveInEastWestAxis(units);
+                currentPositionX = moveInEastWestAxis(units);
                 break;
         }
+    }
+
+    private boolean isMoveForward(char action) {
+        return action == MOVE_FORWARD;
     }
 
     private int getDirectionSign(char direction) {
@@ -139,7 +149,7 @@ public class FerryNavigationSystem {
     }
 
     private int moveInNorthSouthAxis(int value) {
-        return currentPositionY - value;
+        return currentPositionY + value;
     }
 
     private int moveInEastWestAxis(int value) {
