@@ -29,6 +29,7 @@ public class NavigationSystem {
 
     private final char navigationType;
     private final ArrayList<Character> navigationOrder = new ArrayList<>();
+
     private int ferryPositionX;
     private int ferryPositionY;
     private int waypointPositionX;
@@ -38,9 +39,13 @@ public class NavigationSystem {
         this.navigationType = navigationType;
         initializeNavigationOrder();
         setFerryStartingPosition();
-        if (navigationType == TYPE_WAYPOINT) {
+        if (isTypeWaypoint(navigationType)) {
             setWaypointStartingPosition();
         }
+    }
+
+    private boolean isTypeWaypoint(char navigationType) {
+        return navigationType == TYPE_WAYPOINT;
     }
 
     private void setFerryStartingPosition() {
@@ -72,32 +77,40 @@ public class NavigationSystem {
         int value = getValue(instruction);
 
         if (isaTurnAction(action)) {
-            int rotations = getRotations(value);
-            if (isaTypeFerry()) {
-                turnFerry(action, rotations);
-            } else if (isaTypeWaypoint()) {
-                rotateWaypoint(action, rotations);
-            }
+            processTurnAction(action, value);
         } else {
-            if (isaTypeFerry()) {
-                action = isMoveForward(action) ? getNavigationDirection() : action;
-                moveThisType(action, value);
-            } else if (isaTypeWaypoint()) {
-                if (isMoveForward(action)) {
-                    moveFerryToTheWaypoint(value);
-                } else {
-                    moveThisType(action, value);
-                }
+            processMoveAction(action, value);
+        }
+    }
+
+    private void processMoveAction(char action, int value) {
+        if (isaTypeFerry()) {
+            move(getDirection(action), value);
+        } else if (isaTypeWaypoint()) {
+            if (isMoveForward(action)) {
+                moveFerryToTheWaypoint(value);
+            } else {
+                move(action, value);
             }
+        }
+    }
+
+    private char getDirection(char action) {
+        return isMoveForward(action) ? getNavigationDirection() : action;
+    }
+
+    private void processTurnAction(char action, int value) {
+        int rotations = getRotations(value);
+        if (isaTypeFerry()) {
+            turnFerry(action, rotations);
+        } else if (isaTypeWaypoint()) {
+            rotateWaypoint(action, rotations);
         }
     }
 
     private void moveFerryToTheWaypoint(int value) {
         ferryPositionX += waypointPositionX * value;
         ferryPositionY += waypointPositionY * value;
-        // the waypoint stays relative to the ship
-        // waypointPositionX += ferryPositionX;
-        // waypointPositionY += ferryPositionY;
     }
 
     private boolean isaTypeFerry() {
@@ -105,14 +118,14 @@ public class NavigationSystem {
     }
 
     private boolean isaTypeWaypoint() {
-        return navigationType == TYPE_WAYPOINT;
+        return isTypeWaypoint(navigationType);
     }
 
     private int calculateManhattanDistance() {
         return Math.abs(ferryPositionX - ferryPositionY);
     }
 
-    private void moveThisType(char action, int units) {
+    private void move(char action, int units) {
         int directionSign = getDirectionSign(action);
         units = directionSign * units;
         setNewFerryPosition(action, units);

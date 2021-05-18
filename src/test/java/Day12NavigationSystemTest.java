@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class Day12RainRiskTest {
+public class Day12NavigationSystemTest {
 
     private static final String NAVIGATION_INSTRUCTIONS_INPUT_EXAMPLE = "src/test/resources/d12-example-input.txt";
     private static final String NAVIGATION_INSTRUCTIONS_INPUT = "src/test/resources/d12-input.txt";
