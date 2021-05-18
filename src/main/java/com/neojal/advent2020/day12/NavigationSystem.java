@@ -95,6 +95,9 @@ public class NavigationSystem {
     private void moveFerryToTheWaypoint(int value) {
         ferryPositionX += waypointPositionX * value;
         ferryPositionY += waypointPositionY * value;
+        // the waypoint stays relative to the ship
+        // waypointPositionX += ferryPositionX;
+        // waypointPositionY += ferryPositionY;
     }
 
     private boolean isaTypeFerry() {
@@ -208,14 +211,15 @@ public class NavigationSystem {
     }
 
     private void rotateWaypointToRight() {
+        int tempX = waypointPositionX;
         waypointPositionX = waypointPositionY;
-        waypointPositionY = BACKWARD_DIRECTION * waypointPositionX;
+        waypointPositionY = BACKWARD_DIRECTION * tempX;
     }
 
     private void rotateWaypointToLeft() {
-        // todo: the waypoint must rotate around the ship, not around the origin.
+        int tempX = waypointPositionX;
         waypointPositionX = BACKWARD_DIRECTION * waypointPositionY;
-        waypointPositionY = waypointPositionX;
+        waypointPositionY = tempX;
     }
 
     private void moveInNorthSouthAxis(int value) {
