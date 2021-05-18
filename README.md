@@ -31,3 +31,10 @@ Then there is a JUnit test for each solved requirement here: [tests](src/test/ja
     - Map
 10. [JoltAdapter.java](src/main/java/com/neojal/advent2020/day10/JoltAdapter.java)
     - Part2 - figured out a formula to get all the combinations.
+11. [SeatingSystem](src/main/java/com/neojal/advent2020/day11/SeatingSystem.java)
+[SeatingSystem part2](src/main/java/com/neojal/advent2020/day11/SeatingSystemPart2.java)
+    - only got the first star.
+    - a total mess.
+12. [Ferry Navigation System](src/main/java/com/neojal/advent2020/day12/NavigationSystem.java)
+    - Applied some clean code concepts.
+    - Added tests for the example cases.
