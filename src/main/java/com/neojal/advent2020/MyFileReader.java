@@ -76,10 +76,8 @@ public class MyFileReader {
         char[][] array = new char[numLines][numChars];
 
         for (int i = 0; i < numLines; i++) {
-
             array[i] = arrayList.get(i).toCharArray();
         }
-
         return array;
     }
 }
